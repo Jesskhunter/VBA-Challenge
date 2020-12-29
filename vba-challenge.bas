@@ -1,22 +1,18 @@
 Attribute VB_Name = "Module1"
 Sub Stockmarket()
-
-            
-        Dim tickername As String
+         
+Dim tickername As String
+Dim tickervol As Double
+Dim ticker_summary As Integer
+Dim open_price As Double
+Dim close_price As Double
+Dim yearly_change As Double
+Dim percent_change As Double
         
-        Dim tickervol As Double
-        tickervol = 0
-        
-        Dim ticker_summary As Integer
-        ticker_summary = 2
-        
-        Dim open_price As Double
-        open_price = Cells(2, 3).Value
-        
-        Dim close_price As Double
-        Dim yearly_change As Double
-        Dim percent_change As Double
-
+ticker_summary = 2
+tickervol = 0
+open_price = Cells(2, 3).Value
+          
         Cells(1, 9).Value = "Ticker"
         Cells(1, 10).Value = "Yearly Change"
         Cells(1, 11).Value = "Percent Change"
@@ -72,17 +68,15 @@ Sub Stockmarket()
 
     
     lastrow_summary_table = Cells(Rows.Count, 9).End(xlUp).Row
-    
-       
+           
     For I = 2 To lastrow_summary_table
             If Cells(I, 10).Value > 0 Then
                 Cells(I, 10).Interior.ColorIndex = 4
-        Else
+            Else
                 Cells(I, 10).Interior.ColorIndex = 3
-        End If
+            End If
             
     Next I
 
-Next ws
-    
+      
 End Sub
