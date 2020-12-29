@@ -1,9 +1,13 @@
 Attribute VB_Name = "Module1"
 Sub Stockmarket()
-         
+   
+Dim ws As Worksheet
+
+For Each ws In Worksheets
+   
 Dim tickername As String
 Dim tickervol As Double
-Dim ticker_summary As Integer
+Dim ticker_summary As Long
 Dim open_price As Double
 Dim close_price As Double
 Dim yearly_change As Double
@@ -11,32 +15,32 @@ Dim percent_change As Double
         
 ticker_summary = 2
 tickervol = 0
-open_price = Cells(2, 3).Value
+open_price = ws.Cells(2, 3).Value
           
-        Cells(1, 9).Value = "Ticker"
-        Cells(1, 10).Value = "Yearly Change"
-        Cells(1, 11).Value = "Percent Change"
-        Cells(1, 12).Value = "Total Stock Volume"
+        ws.Cells(1, 9).Value = "Ticker"
+        ws.Cells(1, 10).Value = "Yearly Change"
+        ws.Cells(1, 11).Value = "Percent Change"
+        ws.Cells(1, 12).Value = "Total Stock Volume"
        
-        lastrow = Cells(Rows.Count, 1).End(xlUp).Row
+        lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
         
         For I = 2 To lastrow
            
-            If Cells(I + 1, 1).Value <> Cells(I, 1).Value Then
+            If ws.Cells(I + 1, 1).Value <> Cells(I, 1).Value Then
                       
-              tickername = Cells(I, 1).Value
+              tickername = ws.Cells(I, 1).Value
               
-              tickervol = tickervol + Cells(I, 7).Value
+              tickervol = tickervol + ws.Cells(I, 7).Value
 
-              Range("I" & ticker_summary).Value = tickername
+              ws.Range("I" & ticker_summary).Value = tickername
               
-              Range("L" & ticker_summary).Value = tickervol
+              ws.Range("L" & ticker_summary).Value = tickervol
 
-              close_price = Cells(I, 6).Value
+              close_price = ws.Cells(I, 6).Value
             
               yearly_change = (close_price - open_price)
                            
-              Range("J" & ticker_summary).Value = yearly_change
+              ws.Range("J" & ticker_summary).Value = yearly_change
              
                 If (open_price = 0) Then
 
@@ -48,18 +52,18 @@ open_price = Cells(2, 3).Value
                 
                 End If
 
-              Range("K" & ticker_summary).Value = percent_change
-              Range("K" & ticker_summary).NumberFormat = "0.00%"
+              ws.Range("K" & ticker_summary).Value = percent_change
+              ws.Range("K" & ticker_summary).NumberFormat = "0.00%"
                  
               ticker_summary = ticker_summary + 1
               
               tickervol = 0
 
-              open_price = Cells(I + 1, 3)
+              open_price = ws.Cells(I + 1, 3)
             
             Else
               
-              tickervol = tickervol + Cells(I, 7).Value
+              tickervol = tickervol + ws.Cells(I, 7).Value
 
             
             End If
@@ -67,16 +71,18 @@ open_price = Cells(2, 3).Value
         Next I
 
     
-    lastrow_summary_table = Cells(Rows.Count, 9).End(xlUp).Row
+    lastrow_summary_table = ws.Cells(Rows.Count, 9).End(xlUp).Row
            
     For I = 2 To lastrow_summary_table
-            If Cells(I, 10).Value > 0 Then
-                Cells(I, 10).Interior.ColorIndex = 4
+            If ws.Cells(I, 10).Value > 0 Then
+                ws.Cells(I, 10).Interior.ColorIndex = 4
             Else
-                Cells(I, 10).Interior.ColorIndex = 3
+                ws.Cells(I, 10).Interior.ColorIndex = 3
             End If
             
     Next I
 
-      
+    Next ws
+     
 End Sub
+
